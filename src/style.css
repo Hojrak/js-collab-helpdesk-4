@@ -1,12 +1,37 @@
-@import url("https://fonts.googleapis.com/css2?family=Open+Sans&display=swap");
-
 body {
-  font-family: "Open Sans", Arial, sans-serif;
-  margin: 20px;
+  font-family: monospace, sans-serif;
+  box-sizing: border-box;
+  min-height: 100vh;
+  margin: 0;
+  padding: 24px;
+  background: black;
+  color: white;
+  display: grid;
+  place-items: center;
+}
+
+.app {
+  box-sizing: border-box;
+  width: min(100%, 560px);
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  border-radius: 16px;
+  background: #1c1c1c;
+  text-align: left;
+}
+
+h1 {
+  align-self: center;
+  margin: 15px;
+  padding: 15px;
+  border-radius: 12px;
+  background: salmon;
 }
 
 form {
-  width: 300px;
+  width: 100%;
 }
 
 label {
@@ -16,51 +41,136 @@ label {
 
 input,
 select {
+  font: inherit;
+  box-sizing: border-box;
+  border: 0;
+  border-radius: 8px;
   margin-top: 5px;
+  padding: 5px;
+  background: salmon;
+  color: white;
+}
+
+input:focus,
+select:focus,
+button:focus-visible {
+  outline: 2px solid white;
+  outline-offset: 2px;
 }
 
 #title {
   width: 100%;
 }
 
+#priority {
+  width: 60%;
+}
+
 button {
+  border: 0;
+  border-radius: 8px;
   margin-top: 10px;
   padding: 5px 10px;
   cursor: pointer;
+  background: salmon;
+  color: white;
+  font: inherit;
+}
+
+.filter-controls {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: 12px;
+  margin-top: 22px;
+}
+
+.filter-controls label {
+  margin: 0;
 }
 
 #filter {
-  margin-top: 5px;
-  width: 140px;
+  width: 100%;
 }
 
 #message {
   min-height: 1em;
+  margin: 16px 0 0;
 }
 
 #message.error {
-  color: #a00;
+  color: #ff8a80;
+}
+
+.tickets-section {
+  margin-top: 8px;
+}
+
+.tickets-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.tickets-header h2 {
+  margin: 0;
+  font-size: 1.25rem;
+}
+
+#counter {
+  margin: 0;
+  padding: 4px 10px;
+  border-radius: 120px;
+  background: #383838;
+  color: #f7b0a7;
+  font-size: 0.875rem;
+  font-weight: 700;
 }
 
 #tickets {
-  margin-top: 20px;
-  padding-left: 20px;
+  display: grid;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  overflow-wrap: anywhere;
 }
 
 #tickets li {
-  margin: 16px 0;
+  min-width: 0;
+  padding: 16px;
+  border: 1px solid #414141;
+  border-left: 4px solid salmon;
+  border-radius: 12px;
+  background: #262626;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
 }
 
 #tickets label {
-  display: inline;
-  margin: 0 0 0 8px;
+  display: block;
+  margin: 12px 0 5px;
+  color: #bbb;
+  font-size: 0.875rem;
 }
 
-#tickets select,
-#tickets button {
-  margin-left: 5px;
+#tickets select {
+  margin: 0;
 }
 
 #tickets button {
-  margin-top: 0;
+  margin: 0;
+  margin-left: 8px;
+  background: #414141;
+}
+
+#tickets button:hover {
+  background: #555;
+}
+
+@media (max-width: 480px) {
+  .app {
+    padding: 20px;
+  }
 }

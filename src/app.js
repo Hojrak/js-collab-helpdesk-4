@@ -1,6 +1,14 @@
+import {
+    STATUSES,
+    createTicket,
+    filterTickets,
+    getNextId,
+    removeTicket,
+    setTicketStatus,
+    updateTicket,
+} from "./domain.js";
+
 const key = "tickets";
-const statuses = ["new", "doing", "done"];
-const priorities = ["low", "normal", "high"];
 
 const form = document.querySelector("#ticket-form");
 const titleInput = document.querySelector("#title");
@@ -17,13 +25,7 @@ function loadTickets() {
 
 let tickets = loadTickets();
 let editId = null;
-let lastId = 1;
-
-tickets.forEach((ticket) => {
-    const number = Number(ticket.id);
-    if (number >= lastId) lastId = number + 1;
-});
-
+let lastId = getNextId(tickets);
 
 function saveTickets() {
     localStorage.setItem(key, JSON.stringify(tickets));
@@ -35,48 +37,19 @@ function showMessage(text, isError = false) {
 }
 
 function getVisibleTickets() {
-    if (filterInput.value === "all") return tickets;
-    return tickets.filter((ticket) => ticket.status === filterInput.value);
+    return filterTickets(tickets, filterInput.value);
 }
 
 function addTicket(title, priority) {
-    title = title.trim();
-    if (title.length < 3 || title.length > 80) {
-        throw new Error("Tytuł musi mieć od 3 do 80 znaków");
-    }
-
-    if (!priorities.includes(priority)) {
-        throw new Error("Wybierz prawidłowy priorytet");
-    }
-
-    if (tickets.length >= 1000) {
-        throw new Error("Można dodać max. 1000 zgłoszeń");
-    }
-
-    const ticket = {
-        id: `${lastId++}`,
-        title: title,
-        priority: priority,
-        status: "new",
-    };
-
-    tickets.push(ticket);
+    const ticket = createTicket(tickets, lastId, title, priority);
+    lastId += 1;
+    tickets = [...tickets, ticket];
     saveTickets();
     return ticket;
 }
 
 function changeStatus(id, status) {
-    const ticket = tickets.find((item) => item.id === id);
-
-    if (!ticket) {
-        throw new Error("Nie znaleziono zgłoszenia");
-    }
-
-    if (!statuses.includes(status)) {
-        throw new Error("Wybierz prawidłowy status");
-    }
-
-    ticket.status = status;
+    tickets = setTicketStatus(tickets, id, status);
     saveTickets();
 }
 
@@ -91,7 +64,7 @@ function createTicketRow(ticket) {
     const statusSelect = document.createElement("select");
     statusSelect.id = `status-${ticket.id}`;
 
-    statuses.forEach((status) => {
+    STATUSES.forEach((status) => {
         const option = document.createElement("option");
         option.value = status;
         option.textContent = status;
@@ -126,7 +99,7 @@ function createTicketRow(ticket) {
     deleteButton.type = "button";
     deleteButton.textContent = "Usuń";
     deleteButton.addEventListener("click", () => {
-        tickets = tickets.filter((item) => item.id !== ticket.id);
+        tickets = removeTicket(tickets, ticket.id);
         saveTickets();
 
         if (editId === ticket.id) {
@@ -177,24 +150,9 @@ form.addEventListener("submit", (event) => {
             const ticket = addTicket(title, priority);
             showMessage(`Dodano zgłoszenie ${ticket.id}.`);
         } else {
-            const ticket = tickets.find((item) => item.id === editId);
-
-            if (!ticket) {
-                throw new Error("Nie znaleziono zgłoszenia do edycji");
-            }
-
-            if (title.length < 3 || title.length > 80) {
-                throw new Error("Tytuł musi mieć od 3 do 80 znaków");
-            }
-
-            if (!priorities.includes(priority)) {
-                throw new Error("Wybierz priorytet");
-            }
-
-            ticket.title = title;
-            ticket.priority = priority;
+            tickets = updateTicket(tickets, editId, title, priority);
             saveTickets();
-            showMessage(`Zapisano zgłoszenie ${ticket.id}.`);
+            showMessage(`Zapisano zgłoszenie ${editId}.`);
             editId = null;
             submitButton.textContent = "Dodaj";
         }
@@ -210,6 +168,5 @@ form.addEventListener("submit", (event) => {
 
 filterInput.addEventListener("change", update);
 priorityInput.value = "normal";
-
 
 update();

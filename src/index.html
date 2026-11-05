@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Helpdesk Dominik Ziętara</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <h1>Helpdesk</h1>
+
+    <form id="ticket-form">
+      <label for="title">Tytuł zgłoszenia</label>
+      <input id="title" name="title" maxlength="80" />
+
+      <label for="priority">Priorytet</label>
+      <select id="priority" name="priority">
+        <option value="high">Wysoki</option>
+        <option value="normal" selected>Normalny</option>
+        <option value="low">Niski</option>
+      </select>
+
+      <button id="submit" type="submit">Dodaj</button>
+    </form>
+
+    <label for="filter">Filtr</label>
+    <select id="filter">
+      <option value="all">Wszystkie</option>
+      <option value="new">Nowe</option>
+      <option value="doing">W trakcie</option>
+      <option value="done">Zakończone</option>
+    </select>
+
+    <p id="message" role="status"></p>
+    <p id="counter">0 / 0</p>
+    <ul id="tickets"></ul>
+
+    <script defer src="app.js"></script>
+  </body>
+</html>

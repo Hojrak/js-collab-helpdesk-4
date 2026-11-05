@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Testy Helpdesku</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+      }
+
+      li {
+        margin: 6px 0;
+      }
+
+      .pass {
+        color: green;
+      }
+
+      .fail {
+        color: #a00;
+      }
+
+      iframe {
+        width: 700px;
+        height: 500px;
+        border: 0;
+      }
+    </style>
+    <script defer src="test.js"></script>
+  </head>
+  <body>
+    <h1>Testy Helpdesku</h1>
+    <p>Testy wygenerowane przez model GPT-6 Luna.</p>
+    <p>Otwórz tę stronę przez ten sam lokalny serwer co aplikację, np. Live Server.</p>
+    <p id="summary">Uruchamianie testów...</p>
+    <ol id="results"></ol>
+    <h2>Aplikacja testowa</h2>
+    <iframe id="app" src="index.html" title="Testowana aplikacja"></iframe>
+  </body>
+</html>

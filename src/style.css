@@ -1,0 +1,66 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans&display=swap");
+
+body {
+  font-family: "Open Sans", Arial, sans-serif;
+  margin: 20px;
+}
+
+form {
+  width: 300px;
+}
+
+label {
+  display: block;
+  margin-top: 10px;
+}
+
+input,
+select {
+  margin-top: 5px;
+}
+
+#title {
+  width: 100%;
+}
+
+button {
+  margin-top: 10px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+#filter {
+  margin-top: 5px;
+  width: 140px;
+}
+
+#message {
+  min-height: 1em;
+}
+
+#message.error {
+  color: #a00;
+}
+
+#tickets {
+  margin-top: 20px;
+  padding-left: 20px;
+}
+
+#tickets li {
+  margin: 16px 0;
+}
+
+#tickets label {
+  display: inline;
+  margin: 0 0 0 8px;
+}
+
+#tickets select,
+#tickets button {
+  margin-left: 5px;
+}
+
+#tickets button {
+  margin-top: 0;
+}

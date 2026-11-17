@@ -7,11 +7,72 @@ export const MAX_TITLE = 80;
 export const MAX_TICKETS = 1000;
 
 export function validateTitle(title) {
-    const trimmed = String(title ?? "").trim();
+    if (typeof title !== "string") {
+    throw new Error("Tytuł musi być tekstem.");
+}
+
+const trimmed = title.trim();
     if (trimmed.length < MIN_TITLE || trimmed.length > MAX_TITLE) {
         throw new Error(`Tytuł musi mieć od ${MIN_TITLE} do ${MAX_TITLE} znaków`);
     }
     return trimmed;
+}
+
+export function validateTickets(data) {
+    if (!Array.isArray(data)) {
+        throw new Error("Importowane dane muszą być tablicą.");
+    }
+
+    if (data.length > MAX_TICKETS) {
+        throw new Error("Przekroczono limit zgłoszeń.");
+    }
+
+    const ids = [];
+    const noweZgloszenia = [];
+
+    for (let i = 0; i < data.length; i++) {
+        const ticket = data[i];
+
+        if (ticket === null || typeof ticket !== "object" || Array.isArray(ticket)) {
+            throw new Error(`Nieprawidłowe zgłoszenie nr ${i + 1}.`);
+        }
+
+        if (
+            !Object.prototype.hasOwnProperty.call(ticket, "id") ||
+            !Object.prototype.hasOwnProperty.call(ticket, "title") ||
+            !Object.prototype.hasOwnProperty.call(ticket, "priority") ||
+            !Object.prototype.hasOwnProperty.call(ticket, "status")
+        ) {
+            throw new Error(`Brak wymaganych pól w zgłoszeniu nr ${i + 1}.`);
+        }
+
+        if (
+            typeof ticket.id !== "string" ||
+            !/^[1-9]\d*$/.test(ticket.id) ||
+            !Number.isSafeInteger(Number(ticket.id))
+        ) {
+            throw new Error(`Nieprawidłowe ID w zgłoszeniu nr ${i + 1}.`);
+        }
+
+        if (ids.includes(ticket.id)) {
+            throw new Error(`Powtarzające się ID: ${ticket.id}.`);
+        }
+
+        const title = validateTitle(ticket.title);
+        const priority = validatePriority(ticket.priority);
+        const status = validateStatus(ticket.status);
+
+        ids.push(ticket.id);
+
+        noweZgloszenia.push({
+            id: ticket.id,
+            title: title,
+            priority: priority,
+            status: status
+        });
+    }
+
+    return noweZgloszenia;
 }
 
 export function validatePriority(priority) {

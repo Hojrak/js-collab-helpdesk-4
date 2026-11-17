@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="pl">
   <head>
@@ -9,6 +10,25 @@
   <body>
     <div class="app">
       <h1>Helpdesk</h1>
+
+      <section class="import-section">
+        <h2>Import zgłoszeń</h2>
+
+        <label for="json-file">Wybierz plik JSON</label>
+        <input
+          type="file"
+          id="json-file"
+          accept=".json,application/json"
+        />
+
+        <button type="button" id="import-file">
+          Importuj JSON
+        </button>
+        <button type="button" id="import-fetch">
+          Importuj tickets.json przez fetch
+        </button>
+      </section>
+      
 
       <form id="ticket-form">
         <label for="title">Tytuł zgłoszenia</label>
@@ -35,11 +55,13 @@
       </div>
 
       <p id="message" role="status"></p>
+
       <section class="tickets-section">
         <div class="tickets-header">
           <h2 id="tickets-header">Zgłoszenia</h2>
           <p id="counter">0 / 0</p>
         </div>
+
         <ol id="tickets"></ol>
       </section>
 

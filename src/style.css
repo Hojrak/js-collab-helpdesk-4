@@ -174,3 +174,10 @@ button {
     padding: 20px;
   }
 }
+
+button:disabled,
+input:disabled,
+select:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}

@@ -1,5 +1,3 @@
-// domain.js - reguły helpdesku. Bez document, bez localStorage, bez efektów ubocznych.
-
 export const STATUSES = ["new", "doing", "done"];
 export const PRIORITIES = ["low", "normal", "high"];
 export const MIN_TITLE = 3;
@@ -8,10 +6,10 @@ export const MAX_TICKETS = 1000;
 
 export function validateTitle(title) {
     if (typeof title !== "string") {
-    throw new Error("Tytuł musi być tekstem.");
-}
+        throw new Error("Tytuł musi być tekstem.");
+    }
 
-const trimmed = title.trim();
+    const trimmed = title.trim();
     if (trimmed.length < MIN_TITLE || trimmed.length > MAX_TITLE) {
         throw new Error(`Tytuł musi mieć od ${MIN_TITLE} do ${MAX_TITLE} znaków`);
     }

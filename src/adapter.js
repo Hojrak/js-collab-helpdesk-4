@@ -1,4 +1,3 @@
-
 export async function readJsonFile(file) {
     if (!file) {
         throw new Error("Nie wybrano pliku.");

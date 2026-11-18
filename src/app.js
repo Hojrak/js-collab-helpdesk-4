@@ -29,7 +29,7 @@ const jsonFileInput = document.querySelector("#json-file");
 const importFileButton = document.querySelector("#import-file");
 const importFetchButton = document.querySelector("#import-fetch");
 
-const ticketsUrl = "./testy/tickets.json";
+const ticketsUrl = "../testy/tickets.json";
 
 let isImporting = false;
 

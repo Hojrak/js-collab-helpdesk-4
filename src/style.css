@@ -178,6 +178,10 @@ button {
 button:disabled,
 input:disabled,
 select:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+#import-fetch {
+  text-align: left;
 }
